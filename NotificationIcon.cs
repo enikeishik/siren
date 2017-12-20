@@ -1,0 +1,142 @@
+﻿/*
+ * Created by SharpDevelop.
+ * User: pl
+ * Date: 18.12.2017
+ * Time: 17:19
+ * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ */
+using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
+using System.IO;
+using System.Collections.Generic;
+
+namespace Siren
+{
+    public sealed class NotificationIcon
+    {
+        private static readonly string eventsFilePath = "events.txt";
+        private NotifyIcon notifyIcon;
+        private ContextMenu notificationMenu;
+        private static System.Windows.Forms.Timer timer;
+        
+        public static SirenEvents SirenEvents
+        {
+            get; set;
+        }
+        
+        static NotificationIcon()
+        {
+            eventsFilePath =
+                Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + 
+                "\\" + eventsFilePath;
+        }
+        
+        #region Initialize icon and menu
+        public NotificationIcon()
+        {
+            notifyIcon = new NotifyIcon();
+            notificationMenu = new ContextMenu(InitializeMenu());
+            
+            notifyIcon.DoubleClick += IconDoubleClick;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationIcon));
+            notifyIcon.Icon = (Icon)resources.GetObject("$this.Icon");
+            notifyIcon.ContextMenu = notificationMenu;
+            notifyIcon.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            notifyIcon.BalloonTipText = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+        }
+        
+        private MenuItem[] InitializeMenu()
+        {
+            MenuItem[] menu = new MenuItem[] {
+                new MenuItem("Events", menuEventsClick),
+                new MenuItem("Exit", menuExitClick)
+            };
+            return menu;
+        }
+        #endregion
+        
+        #region Main - Program entry point
+        /// <summary>Program entry point.</summary>
+        /// <param name="args">Command Line Arguments</param>
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            
+            try {
+                SirenEvents = new SirenEvents(eventsFilePath);
+            } catch (Exception e) {
+                MessageBox.Show(e.ToString());
+                Application.Exit();
+            }
+            
+            bool isFirstInstance;
+            // Please use a unique name for the mutex to prevent conflicts with other programs
+            using (Mutex mtx = new Mutex(true, "Siren", out isFirstInstance)) {
+                if (isFirstInstance) {
+                    NotificationIcon notificationIcon = new NotificationIcon();
+                    //notificationIcon.notifyIcon.Icon = 
+                    notificationIcon.notifyIcon.Visible = true;
+                    timer = new System.Windows.Forms.Timer();
+                    timer.Tick += new EventHandler(TimerHandler);
+                    timer.Interval = 2000;
+                    timer.Enabled = true;
+                    timer.Start();
+                    Application.Run();
+                    notificationIcon.notifyIcon.Dispose();
+                } else {
+                    // The application is already running
+                    ShowSirenEventsForm();
+                }
+            } // releases the Mutex
+        }
+        #endregion
+        
+        public static bool FormDisplayed
+        {
+            get; set;
+        }
+        
+        private static void TimerHandler(object sender, EventArgs e)
+        {
+            SirenEvent se = SirenEvents.FindExpired();
+            if (null != se) {
+                ShowSirenEventsForm(true);
+            }
+        }
+        
+        private static void ShowSirenEventsForm(bool minimized = false)
+        {
+            if (FormDisplayed)
+                return;
+            Form form = new SirenEventsForm();
+            if (minimized)
+                form.WindowState = FormWindowState.Minimized;
+            form.Show();
+            FormFlasher.FlashWindowEx(form);
+            FormDisplayed = true;
+        }
+        
+        #region Event Handlers
+        private void menuEventsClick(object sender, EventArgs e)
+        {
+            ShowSirenEventsForm();
+        }
+        
+        private void menuExitClick(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        
+        private void IconDoubleClick(object sender, EventArgs e)
+        {
+            ShowSirenEventsForm();
+        }
+        #endregion
+    }
+}
