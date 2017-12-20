@@ -98,28 +98,30 @@ namespace Siren
             this.editSelectedEventToolStripMenuItem,
             this.removeSelectedEventToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(196, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(220, 92);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip1Opening);
             // 
             // addEventToolStripMenuItem
             // 
             this.addEventToolStripMenuItem.Name = "addEventToolStripMenuItem";
             this.addEventToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.addEventToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.addEventToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.addEventToolStripMenuItem.Text = "Add event";
             this.addEventToolStripMenuItem.Click += new System.EventHandler(this.AddEventToolStripMenuItemClick);
             // 
             // editSelectedEventToolStripMenuItem
             // 
             this.editSelectedEventToolStripMenuItem.Name = "editSelectedEventToolStripMenuItem";
-            this.editSelectedEventToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.editSelectedEventToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.editSelectedEventToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.editSelectedEventToolStripMenuItem.Text = "Edit selected event";
             this.editSelectedEventToolStripMenuItem.Click += new System.EventHandler(this.EditSelectedEventToolStripMenuItemClick);
             // 
             // removeSelectedEventToolStripMenuItem
             // 
             this.removeSelectedEventToolStripMenuItem.Name = "removeSelectedEventToolStripMenuItem";
-            this.removeSelectedEventToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.removeSelectedEventToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.removeSelectedEventToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.removeSelectedEventToolStripMenuItem.Text = "Remove selected event";
             this.removeSelectedEventToolStripMenuItem.Click += new System.EventHandler(this.RemoveSelectedEventToolStripMenuItemClick);
             // 
