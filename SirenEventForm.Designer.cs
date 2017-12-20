@@ -1,11 +1,17 @@
-﻿/*
+﻿/**
+ * Siren
+ * Simple event notifyer
+ * 
  * Created by SharpDevelop.
- * User: pl
+ * User: Enikeishik
  * Date: 19.12.2017
  * Time: 15:08
  * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ * @copyright   Copyright (C) 2005 - 2017 Enikeishik <enikeishik@gmail.com>. All rights reserved.
+ * @author      Enikeishik <enikeishik@gmail.com>
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
+
 namespace Siren
 {
     partial class SirenEventForm

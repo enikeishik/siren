@@ -1,11 +1,17 @@
-﻿/*
+﻿/**
+ * Siren
+ * Simple event notifyer
+ * 
  * Created by SharpDevelop.
- * User: pl
+ * User: Enikeishik
  * Date: 19.12.2017
  * Time: 8:15
  * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ * @copyright   Copyright (C) 2005 - 2017 Enikeishik <enikeishik@gmail.com>. All rights reserved.
+ * @author      Enikeishik <enikeishik@gmail.com>
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
+
 namespace Siren
 {
     partial class SirenEventsForm
@@ -125,7 +131,7 @@ namespace Siren
             this.Controls.Add(this.listView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SirenEventsForm";
-            this.Text = "Settings";
+            this.Text = "Siren events";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsFormClosed);
             this.Load += new System.EventHandler(this.SirenEventsFormLoad);
             this.contextMenuStrip1.ResumeLayout(false);
