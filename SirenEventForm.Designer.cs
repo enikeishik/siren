@@ -126,7 +126,7 @@ namespace Siren
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SirenEventForm";
-            this.Text = "SirenEventForm";
+            this.Text = "Event";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -38,11 +38,25 @@ namespace Siren
         
         void BtnSaveClick(object sender, EventArgs e)
         {
+            if (dateTimePicker1.Value <= DateTime.Now) {
+                DialogResult result = 
+                    MessageBox.Show(
+                        "Event already expired! Continue?", 
+                        "Event expired", 
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Question
+                    );
+                if (result == DialogResult.Cancel)
+                    return;
+            }
+                
+            DialogResult = DialogResult.OK;
             Close();
         }
         
         void BtnCancelClick(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }

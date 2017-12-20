@@ -43,7 +43,9 @@ namespace Siren
             seForm.Timestamp = SirenEvent.GetCurretnTimestamp();
             seForm.dateTimePicker1.Value = DateTime.Now;
             seForm.textBox1.Text = "";
-            seForm.ShowDialog(this);
+            DialogResult result = seForm.ShowDialog(this);
+            if (result == DialogResult.Cancel)
+                return;
             
             SirenEvent se = new SirenEvent(
                 seForm.dateTimePicker1.Value, 
@@ -82,7 +84,9 @@ namespace Siren
             seForm.Timestamp = se.Timestamp;
             seForm.dateTimePicker1.Value = se.DateTimeFromTimestamp;
             seForm.textBox1.Text = se.EventText;
-            seForm.ShowDialog(this);
+            DialogResult result = seForm.ShowDialog(this);
+            if (result == DialogResult.Cancel)
+                return;
             
             SirenEvent newSe = new SirenEvent(
                 seForm.dateTimePicker1.Value, 
