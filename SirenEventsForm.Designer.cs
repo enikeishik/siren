@@ -98,7 +98,7 @@ namespace Siren
             this.editSelectedEventToolStripMenuItem,
             this.removeSelectedEventToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(220, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(220, 70);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip1Opening);
             // 
             // addEventToolStripMenuItem
@@ -134,7 +134,8 @@ namespace Siren
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SirenEventsForm";
             this.Text = "Siren events";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsFormClosed);
+            this.Activated += new System.EventHandler(this.SirenEventsFormActivated);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SirenEventsFormClosed);
             this.Load += new System.EventHandler(this.SirenEventsFormLoad);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

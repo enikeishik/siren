@@ -24,7 +24,12 @@ namespace Siren
         private NotifyIcon notifyIcon;
         private ContextMenu notificationMenu;
         private static System.Windows.Forms.Timer timer;
-        private static Form eventsForm;
+        private static SirenEventsForm eventsForm;
+        
+        public static bool EventsFormDisplayed
+        {
+            get; set;
+        }
         
         public static SirenEvents SirenEvents
         {
@@ -36,6 +41,7 @@ namespace Siren
             eventsFilePath =
                 Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + 
                 "\\" + eventsFilePath;
+            EventsFormDisplayed = false;
         }
         
         #region Initialize icon and menu
@@ -105,11 +111,6 @@ namespace Siren
         }
         #endregion
         
-        public static bool FormDisplayed
-        {
-            get; set;
-        }
-        
         private static void TimerHandler(object sender, EventArgs e)
         {
             SirenEvent se = SirenEvents.FindExpired();
@@ -120,10 +121,12 @@ namespace Siren
         
         private static void ShowSirenEventsForm(bool minimized = false)
         {
-            if (FormDisplayed) {
-                if (eventsForm.WindowState == FormWindowState.Minimized)
-                    eventsForm.WindowState = FormWindowState.Normal;
-                eventsForm.Activate();
+            if (EventsFormDisplayed) {
+                if (eventsForm.EventsFormInteracted && !eventsForm.EventFormDisplayed) {
+                    if (eventsForm.WindowState == FormWindowState.Minimized)
+                        eventsForm.WindowState = FormWindowState.Normal;
+                    eventsForm.Activate();
+                }
                 return;
             }
             
@@ -138,7 +141,7 @@ namespace Siren
             if (minimized)
                 FormFlasher.FlashWindowEx(eventsForm);
             
-            FormDisplayed = true;
+            EventsFormDisplayed = true;
         }
         
         #region Event Handlers

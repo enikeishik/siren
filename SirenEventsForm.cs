@@ -33,9 +33,21 @@ namespace Siren
             //
             // TODO: Add constructor code after the InitializeComponent() call.
             //
+            EventsFormInteracted = false;
+            EventFormDisplayed = false;
         }
         
         private SirenEvents sirenEvents;
+        
+        public bool EventsFormInteracted
+        {
+            get; set;
+        }
+        
+        public bool EventFormDisplayed
+        {
+            get; set;
+        }
         
         private void AddSirenEvent()
         {
@@ -43,7 +55,9 @@ namespace Siren
             seForm.Timestamp = SirenEvent.GetCurretnTimestamp();
             seForm.dateTimePicker1.Value = DateTime.Now;
             seForm.textBox1.Text = "";
+            EventFormDisplayed = true;
             DialogResult result = seForm.ShowDialog(this);
+            EventFormDisplayed = false;
             if (result == DialogResult.Cancel)
                 return;
             
@@ -84,7 +98,9 @@ namespace Siren
             seForm.Timestamp = se.Timestamp;
             seForm.dateTimePicker1.Value = se.DateTimeFromTimestamp;
             seForm.textBox1.Text = se.EventText;
+            EventFormDisplayed = true;
             DialogResult result = seForm.ShowDialog(this);
+            EventFormDisplayed = false;
             if (result == DialogResult.Cancel)
                 return;
             
@@ -149,9 +165,15 @@ namespace Siren
             }
         }
         
-        void SettingsFormClosed(object sender, FormClosedEventArgs e)
+        void SirenEventsFormActivated(object sender, EventArgs e)
         {
-            NotificationIcon.FormDisplayed = false;
+            EventsFormInteracted = true;
+        }
+        
+        void SirenEventsFormClosed(object sender, FormClosedEventArgs e)
+        {
+            EventsFormInteracted = false;
+            NotificationIcon.EventsFormDisplayed = false;
         }
         
         void ListView1DoubleClick(object sender, EventArgs e)
