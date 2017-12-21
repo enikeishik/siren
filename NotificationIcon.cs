@@ -24,6 +24,7 @@ namespace Siren
         private NotifyIcon notifyIcon;
         private ContextMenu notificationMenu;
         private static System.Windows.Forms.Timer timer;
+        private static Form eventsForm;
         
         public static SirenEvents SirenEvents
         {
@@ -45,7 +46,7 @@ namespace Siren
             
             notifyIcon.DoubleClick += IconDoubleClick;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationIcon));
-            notifyIcon.Icon = (Icon)resources.GetObject("$this.Icon");
+            notifyIcon.Icon = (Icon) resources.GetObject("$this.Icon");
             notifyIcon.ContextMenu = notificationMenu;
             notifyIcon.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
             notifyIcon.BalloonTipText = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
@@ -79,10 +80,10 @@ namespace Siren
             
             bool isFirstInstance;
             // Please use a unique name for the mutex to prevent conflicts with other programs
-            using (Mutex mtx = new Mutex(true, "Siren", out isFirstInstance)) {
+            string appName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            using (Mutex mtx = new Mutex(true, appName, out isFirstInstance)) {
                 if (isFirstInstance) {
                     NotificationIcon notificationIcon = new NotificationIcon();
-                    //notificationIcon.notifyIcon.Icon = 
                     notificationIcon.notifyIcon.Visible = true;
                     timer = new System.Windows.Forms.Timer();
                     timer.Tick += new EventHandler(TimerHandler);
@@ -93,7 +94,12 @@ namespace Siren
                     notificationIcon.notifyIcon.Dispose();
                 } else {
                     // The application is already running
-                    ShowSirenEventsForm();
+                    MessageBox.Show(
+                        "Application already running, look at system tray icon", 
+                        "Application already running", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Asterisk
+                    );
                 }
             } // releases the Mutex
         }
@@ -114,13 +120,24 @@ namespace Siren
         
         private static void ShowSirenEventsForm(bool minimized = false)
         {
-            if (FormDisplayed)
+            if (FormDisplayed) {
+                if (eventsForm.WindowState == FormWindowState.Minimized)
+                    eventsForm.WindowState = FormWindowState.Normal;
+                eventsForm.Activate();
                 return;
-            Form form = new SirenEventsForm();
+            }
+            
+            if (null != eventsForm)
+                eventsForm.Dispose();
+            eventsForm = null;
+            eventsForm = new SirenEventsForm();
+            
             if (minimized)
-                form.WindowState = FormWindowState.Minimized;
-            form.Show();
-            FormFlasher.FlashWindowEx(form);
+                eventsForm.WindowState = FormWindowState.Minimized;
+            eventsForm.Show();
+            if (minimized)
+                FormFlasher.FlashWindowEx(eventsForm);
+            
             FormDisplayed = true;
         }
         
