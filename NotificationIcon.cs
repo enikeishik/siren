@@ -38,9 +38,10 @@ namespace Siren
         
         static NotificationIcon()
         {
-            eventsFilePath =
-                Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + 
-                "\\" + eventsFilePath;
+            eventsFilePath = Path.Combine(
+                Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), 
+                eventsFilePath
+            );
             EventsFormDisplayed = false;
         }
         
@@ -122,11 +123,10 @@ namespace Siren
         private static void ShowSirenEventsForm(bool minimized = false)
         {
             if (EventsFormDisplayed) {
-                if (eventsForm.EventsFormInteracted && !eventsForm.EventFormDisplayed) {
-                    if (eventsForm.WindowState == FormWindowState.Minimized)
-                        eventsForm.WindowState = FormWindowState.Normal;
+                if (eventsForm.EventsFormInteracted && !eventsForm.EventFormDisplayed)
                     eventsForm.Activate();
-                }
+                else
+                    FormFlasher.FlashWindowEx(eventsForm);
                 return;
             }
             

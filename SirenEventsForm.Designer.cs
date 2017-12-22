@@ -137,6 +137,7 @@ namespace Siren
             this.Activated += new System.EventHandler(this.SirenEventsFormActivated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SirenEventsFormClosed);
             this.Load += new System.EventHandler(this.SirenEventsFormLoad);
+            this.Resize += new System.EventHandler(this.SirenEventsFormResize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 

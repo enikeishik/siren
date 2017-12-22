@@ -170,6 +170,14 @@ namespace Siren
             EventsFormInteracted = true;
         }
         
+        void SirenEventsFormResize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+                EventsFormInteracted = false;
+            else
+                EventsFormInteracted = true;
+        }
+        
         void SirenEventsFormClosed(object sender, FormClosedEventArgs e)
         {
             EventsFormInteracted = false;
