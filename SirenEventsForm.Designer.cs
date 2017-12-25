@@ -75,10 +75,13 @@ namespace Siren
             this.listView1.Name = "listView1";
             this.listView1.ShowGroups = false;
             this.listView1.Size = new System.Drawing.Size(484, 262);
+            this.listView1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ListView1ColumnClick);
             this.listView1.DoubleClick += new System.EventHandler(this.ListView1DoubleClick);
+            this.listView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ListView1KeyPress);
             // 
             // columnHeader2
             // 

@@ -140,9 +140,11 @@ namespace Siren
         
         protected void AddListItem(SirenEvent se)
         {
-            ListViewItem lvi = 
+            string key = se.Timestamp.ToString();
+            
+            ListViewItem lvi =
                 listView1.Items.Add(
-                    se.Timestamp.ToString(), 
+                    key, 
                     se.DateTimeFromTimestamp.ToString(), 
                     ""
                 );
@@ -152,6 +154,10 @@ namespace Siren
             if (se.Expired) {
                 lvi.BackColor = Color.Pink;
             }
+            
+            listView1.Sort();
+            
+            listView1.Items[key].Selected = true;
         }
         
         void SirenEventsFormLoad(object sender, EventArgs e)
@@ -214,6 +220,40 @@ namespace Siren
         void RemoveSelectedEventToolStripMenuItemClick(object sender, EventArgs e)
         {
             RemoveSirenEvent();
+        }
+        
+        void ListView1ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            this.listView1.ListViewItemSorter = new ListViewItemComparer(e.Column);
+        }
+        
+        void ListView1KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char) Keys.Enter) {
+                EditSirenEvent();
+            } else if (e.KeyChar == (char) Keys.Delete) {
+                RemoveSirenEvent();
+            }
+        }
+    }
+    
+    class ListViewItemComparer : System.Collections.IComparer
+    {
+        private readonly int col;
+        public ListViewItemComparer()
+        {
+            col = 0;
+        }
+        public ListViewItemComparer(int column)
+        {
+            col = column;
+        }
+        public int Compare(object x, object y)
+        {
+            return String.Compare(
+                ((ListViewItem) x).SubItems[col].Text, 
+                ((ListViewItem) y).SubItems[col].Text
+            );
         }
     }
 }
