@@ -235,6 +235,12 @@ namespace Siren
                 RemoveSirenEvent();
             }
         }
+        void SirenEventsFormKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char) Keys.Escape) {
+                this.Close();
+            }
+        }
     }
     
     class ListViewItemComparer : System.Collections.IComparer

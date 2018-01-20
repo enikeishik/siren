@@ -135,11 +135,13 @@ namespace Siren
             this.ClientSize = new System.Drawing.Size(484, 262);
             this.Controls.Add(this.listView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "SirenEventsForm";
             this.Text = "Siren events";
             this.Activated += new System.EventHandler(this.SirenEventsFormActivated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SirenEventsFormClosed);
             this.Load += new System.EventHandler(this.SirenEventsFormLoad);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SirenEventsFormKeyPress);
             this.Resize += new System.EventHandler(this.SirenEventsFormResize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
