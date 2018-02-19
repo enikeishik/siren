@@ -23,6 +23,8 @@ namespace Siren
     /// </summary>
     public partial class SirenEventsForm : Form
     {
+        private int sortColumn = -1;
+        
         public SirenEventsForm()
         {
             //
@@ -224,7 +226,17 @@ namespace Siren
         
         void ListView1ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            this.listView1.ListViewItemSorter = new ListViewItemComparer(e.Column);
+            if (e.Column != sortColumn) {
+                sortColumn = e.Column;
+                listView1.Sorting = SortOrder.Ascending;
+            } else {
+                if (listView1.Sorting == SortOrder.Ascending)
+                    listView1.Sorting = SortOrder.Descending;
+                else
+                    listView1.Sorting = SortOrder.Ascending;
+            }
+            this.listView1.ListViewItemSorter = new ListViewItemComparer(e.Column, listView1.Sorting);
+            this.listView1.Sort();
         }
         
         void ListView1KeyPress(object sender, KeyPressEventArgs e)
@@ -246,20 +258,39 @@ namespace Siren
     class ListViewItemComparer : System.Collections.IComparer
     {
         private readonly int col;
+        private SortOrder order;
+        
         public ListViewItemComparer()
         {
             col = 0;
+            order = SortOrder.Ascending;
         }
-        public ListViewItemComparer(int column)
+        
+        public ListViewItemComparer(int column, SortOrder order)
         {
             col = column;
+            this.order = order;
         }
+        
         public int Compare(object x, object y)
         {
-            return String.Compare(
-                ((ListViewItem) x).SubItems[col].Text, 
-                ((ListViewItem) y).SubItems[col].Text
-            );
+            int returnVal;
+            try
+            {
+                System.DateTime firstDate = 
+                        DateTime.Parse(((ListViewItem)x).SubItems[col].Text);
+                System.DateTime secondDate = 
+                        DateTime.Parse(((ListViewItem)y).SubItems[col].Text);
+                returnVal = DateTime.Compare(firstDate, secondDate);
+            } catch {
+                returnVal = String.Compare(
+                    ((ListViewItem) x).SubItems[col].Text, 
+                    ((ListViewItem) y).SubItems[col].Text
+                );
+            }
+            if (order == SortOrder.Descending)
+                returnVal *= -1;
+            return returnVal;
         }
     }
 }
