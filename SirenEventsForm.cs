@@ -168,6 +168,12 @@ namespace Siren
             
             sirenEvents = NotificationIcon.SirenEvents;
             
+            listView1.ListViewItemSorter = 
+                new ListViewItemComparer(
+                    (-1 != sortColumn ? sortColumn : 0),
+                    listView1.Sorting
+                );
+            
             foreach (SirenEvent se in sirenEvents) {
                 AddListItem(se);
             }
