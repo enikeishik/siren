@@ -135,6 +135,9 @@ namespace Siren
             eventsForm = null;
             eventsForm = new SirenEventsForm();
             
+            //TODO: place event info in form title
+            eventsForm.Text += " alert";
+            
             if (minimized)
                 eventsForm.WindowState = FormWindowState.Minimized;
             eventsForm.Show();
