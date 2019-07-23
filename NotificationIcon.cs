@@ -25,6 +25,7 @@ namespace Siren
         private ContextMenu notificationMenu;
         private static System.Windows.Forms.Timer timer;
         private static SirenEventsForm eventsForm;
+        private static string eventsFormTitleDefault;
         
         public static bool EventsFormDisplayed
         {
@@ -93,7 +94,13 @@ namespace Siren
                     NotificationIcon notificationIcon = new NotificationIcon();
                     notificationIcon.notifyIcon.Visible = true;
                     timer = new System.Windows.Forms.Timer();
-                    timer.Tick += new EventHandler(TimerHandler);
+                    timer.Tick += delegate(object sender, EventArgs e)
+                    {
+                        SirenEvent se = SirenEvents.FindExpired();
+                        if (null != se) {
+                            ShowSirenEventsForm(true, se.EventText);
+                        }
+                    };
                     timer.Interval = 2000;
                     timer.Enabled = true;
                     timer.Start();
@@ -112,15 +119,7 @@ namespace Siren
         }
         #endregion
         
-        private static void TimerHandler(object sender, EventArgs e)
-        {
-            SirenEvent se = SirenEvents.FindExpired();
-            if (null != se) {
-                ShowSirenEventsForm(true);
-            }
-        }
-        
-        private static void ShowSirenEventsForm(bool minimized = false)
+        private static void ShowSirenEventsForm(bool minimized = false, string title = "")
         {
             if (EventsFormDisplayed) {
                 if (eventsForm.EventsFormInteracted && !eventsForm.EventFormDisplayed)
@@ -134,9 +133,10 @@ namespace Siren
                 eventsForm.Dispose();
             eventsForm = null;
             eventsForm = new SirenEventsForm();
+            eventsFormTitleDefault = eventsForm.Text;
             
-            //TODO: place event info in form title
-            eventsForm.Text += " alert";
+            if ("" != title)
+                eventsForm.Text = title;
             
             if (minimized)
                 eventsForm.WindowState = FormWindowState.Minimized;
@@ -150,7 +150,7 @@ namespace Siren
         #region Event Handlers
         private void menuEventsClick(object sender, EventArgs e)
         {
-            ShowSirenEventsForm();
+            ShowSirenEventsForm(false, eventsFormTitleDefault);
         }
         
         private void menuExitClick(object sender, EventArgs e)
@@ -160,7 +160,7 @@ namespace Siren
         
         private void IconDoubleClick(object sender, EventArgs e)
         {
-            ShowSirenEventsForm();
+            ShowSirenEventsForm(false, eventsFormTitleDefault);
         }
         #endregion
     }
