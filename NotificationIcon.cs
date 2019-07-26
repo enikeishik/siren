@@ -58,6 +58,8 @@ namespace Siren
             notifyIcon.ContextMenu = notificationMenu;
             notifyIcon.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
             notifyIcon.BalloonTipText = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            
+            eventsFormTitleDefault = "";
         }
         
         private MenuItem[] InitializeMenu()
@@ -129,14 +131,15 @@ namespace Siren
                 return;
             }
             
-            if (null != eventsForm)
+            if (null != eventsForm) {
                 eventsForm.Dispose();
-            eventsForm = null;
+                eventsForm = null;
+            }
             eventsForm = new SirenEventsForm();
-            eventsFormTitleDefault = eventsForm.Text;
+            eventsFormTitleDefault = eventsForm.Title;
             
             if ("" != title)
-                eventsForm.Text = title;
+                eventsForm.Title = title;
             
             if (minimized)
                 eventsForm.WindowState = FormWindowState.Minimized;

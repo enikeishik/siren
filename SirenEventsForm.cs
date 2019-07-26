@@ -51,6 +51,12 @@ namespace Siren
             get; set;
         }
         
+        public string Title
+        {
+            get { return Text; }
+            set { Text = value; }
+        }
+        
         private void AddSirenEvent()
         {
             SirenEventForm seForm = new SirenEventForm();
