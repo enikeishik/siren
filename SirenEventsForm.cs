@@ -238,14 +238,25 @@ namespace Siren
         
         void ListView1ColumnClick(object sender, ColumnClickEventArgs e)
         {
+            for (int i = 0; i < listView1.Columns.Count; i++) {
+                string t = listView1.Columns[i].Text;
+                if (-1 != t.IndexOf(" ˄") || -1 != t.IndexOf(" ˅")) {
+                    listView1.Columns[i].Text = t.Substring(0, t.Length - 2);
+                }
+            }
+                
             if (e.Column != sortColumn) {
                 sortColumn = e.Column;
                 listView1.Sorting = SortOrder.Ascending;
+                listView1.Columns[e.Column].Text += " ˄";
             } else {
-                if (listView1.Sorting == SortOrder.Ascending)
+                if (listView1.Sorting == SortOrder.Ascending) {
                     listView1.Sorting = SortOrder.Descending;
-                else
+                    listView1.Columns[e.Column].Text += " ˅";
+                } else {
                     listView1.Sorting = SortOrder.Ascending;
+                    listView1.Columns[e.Column].Text += " ˄";
+                }
             }
             this.listView1.ListViewItemSorter = new ListViewItemComparer(e.Column, listView1.Sorting);
             this.listView1.Sort();
