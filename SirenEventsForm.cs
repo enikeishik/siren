@@ -159,9 +159,8 @@ namespace Siren
             
             lvi.SubItems.Add(se.EventText);
             
-            if (se.Expired) {
+            if (se.Expired)
                 lvi.BackColor = Color.Pink;
-            }
             
             listView1.Sort();
             
@@ -240,9 +239,8 @@ namespace Siren
         {
             for (int i = 0; i < listView1.Columns.Count; i++) {
                 string t = listView1.Columns[i].Text;
-                if (-1 != t.IndexOf(" ˄") || -1 != t.IndexOf(" ˅")) {
+                if (-1 != t.IndexOf(" ˄") || -1 != t.IndexOf(" ˅"))
                     listView1.Columns[i].Text = t.Substring(0, t.Length - 2);
-                }
             }
                 
             if (e.Column != sortColumn) {
@@ -264,17 +262,15 @@ namespace Siren
         
         void ListView1KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char) Keys.Enter) {
+            if (e.KeyChar == (char) Keys.Enter)
                 EditSirenEvent();
-            } else if (e.KeyChar == (char) Keys.Delete) {
+            else if (e.KeyChar == (char) Keys.Delete)
                 RemoveSirenEvent();
-            }
         }
         void SirenEventsFormKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char) Keys.Escape) {
+            if (e.KeyChar == (char) Keys.Escape)
                 this.Close();
-            }
         }
     }
     
