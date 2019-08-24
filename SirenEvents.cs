@@ -52,9 +52,8 @@ namespace Siren
         public SirenEvent Find(Int32 timestamp)
         {
             foreach (SirenEvent se in items) {
-                if (se.Timestamp == timestamp) {
+                if (se.Timestamp == timestamp)
                     return se;
-                }
             }
             return null;
         }
