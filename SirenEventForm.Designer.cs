@@ -26,6 +26,8 @@ namespace Siren
         internal System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btn5min;
+        private System.Windows.Forms.Button btn30min;
         
         /// <summary>
         /// Disposes resources used by the form.
@@ -54,6 +56,8 @@ namespace Siren
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btn5min = new System.Windows.Forms.Button();
+            this.btn30min = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -78,7 +82,7 @@ namespace Siren
             this.label2.Location = new System.Drawing.Point(12, 92);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(260, 20);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 4;
             this.label2.Text = "EventText";
             // 
             // textBox1
@@ -87,14 +91,14 @@ namespace Siren
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(259, 92);
-            this.textBox1.TabIndex = 3;
+            this.textBox1.TabIndex = 5;
             // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(65, 227);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 4;
+            this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSaveClick);
@@ -105,10 +109,30 @@ namespace Siren
             this.btnCancel.Location = new System.Drawing.Point(146, 227);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.BtnCancelClick);
+            // 
+            // btn5min
+            // 
+            this.btn5min.Location = new System.Drawing.Point(13, 58);
+            this.btn5min.Name = "btn5min";
+            this.btn5min.Size = new System.Drawing.Size(45, 23);
+            this.btn5min.TabIndex = 2;
+            this.btn5min.Text = "+5m";
+            this.btn5min.UseVisualStyleBackColor = true;
+            this.btn5min.Click += new System.EventHandler(this.Btn5minClick);
+            // 
+            // btn30min
+            // 
+            this.btn30min.Location = new System.Drawing.Point(64, 58);
+            this.btn30min.Name = "btn30min";
+            this.btn30min.Size = new System.Drawing.Size(45, 23);
+            this.btn30min.TabIndex = 3;
+            this.btn30min.Text = "+30m";
+            this.btn30min.UseVisualStyleBackColor = true;
+            this.btn30min.Click += new System.EventHandler(this.Btn30minClick);
             // 
             // SirenEventForm
             // 
@@ -118,6 +142,8 @@ namespace Siren
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.ControlBox = false;
+            this.Controls.Add(this.btn30min);
+            this.Controls.Add(this.btn5min);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.textBox1);

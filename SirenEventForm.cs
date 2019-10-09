@@ -36,6 +36,16 @@ namespace Siren
             get; set;
         }
         
+        void Btn5minClick(object sender, EventArgs e)
+        {
+            dateTimePicker1.Value = dateTimePicker1.Value.AddMinutes(5);
+        }
+        
+        void Btn30minClick(object sender, EventArgs e)
+        {
+            dateTimePicker1.Value = dateTimePicker1.Value.AddMinutes(30);
+        }
+        
         void BtnSaveClick(object sender, EventArgs e)
         {
             if (dateTimePicker1.Value <= DateTime.Now) {
