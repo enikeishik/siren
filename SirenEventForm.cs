@@ -46,6 +46,11 @@ namespace Siren
             dateTimePicker1.Value = dateTimePicker1.Value.AddMinutes(30);
         }
         
+        void Btn2hourClick(object sender, EventArgs e)
+        {
+            dateTimePicker1.Value = dateTimePicker1.Value.AddHours(2);
+        }
+        
         void BtnSaveClick(object sender, EventArgs e)
         {
             if (dateTimePicker1.Value <= DateTime.Now) {
