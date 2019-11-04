@@ -46,12 +46,17 @@ namespace Siren
             dateTimePicker1.Value = dateTimePicker1.Value.AddMinutes(30);
         }
         
-        void Btn2hourClick(object sender, EventArgs e)
+        void Btn2hoursClick(object sender, EventArgs e)
         {
             dateTimePicker1.Value = dateTimePicker1.Value.AddHours(2);
         }
         
-        void Btn6hourClick(object sender, EventArgs e)
+        void Btn1dayClick(object sender, EventArgs e)
+        {
+            dateTimePicker1.Value = dateTimePicker1.Value.AddHours(24);
+        }
+        
+        void Btn6hoursClick(object sender, EventArgs e)
         {
             dateTimePicker1.Value = dateTimePicker1.Value.AddHours(6);
         }
