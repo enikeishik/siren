@@ -29,6 +29,8 @@ namespace Siren
             //
             // TODO: Add constructor code after the InitializeComponent() call.
             //
+            dateTimePicker1.Value = DateTime.Now;
+            dateTimePicker1.Value = dateTimePicker1.Value.AddHours(24);
         }
         
         public int Timestamp

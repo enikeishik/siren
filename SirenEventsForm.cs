@@ -62,7 +62,9 @@ namespace Siren
             SirenEventForm seForm = new SirenEventForm();
             seForm.Timestamp = SirenEvent.GetCurretnTimestamp();
             seForm.dateTimePicker1.Value = DateTime.Now;
+            seForm.dateTimePicker1.Value = seForm.dateTimePicker1.Value.AddHours(24);
             seForm.textBox1.Text = "";
+            
             EventFormDisplayed = true;
             DialogResult result = seForm.ShowDialog(this);
             EventFormDisplayed = false;
