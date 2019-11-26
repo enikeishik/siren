@@ -73,11 +73,12 @@ namespace Siren
         {
             if (null == obj)
                 return 1;
+            
             SirenEvent otherSirenEvent = obj as SirenEvent;
             if (otherSirenEvent != null)
                 return this.Timestamp.CompareTo(otherSirenEvent.Timestamp);
-            else 
-                throw new ArgumentException("Object is not a SirenEvent");
+            
+            throw new ArgumentException("Object is not a SirenEvent");
         }
         #endregion
     }
